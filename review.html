@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WhatsApp Review Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #1ebf57;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Send WhatsApp Message</h2>
+  <input type="text" id="name" placeholder="Enter your name" required><br>
+  <input type="tel" id="phone" placeholder="Enter phone (with country code)" required><br>
+  <button onclick="sendWhatsApp()">Send on WhatsApp</button>
+
+  <script>
+    function sendWhatsApp() {
+      var name = document.getElementById('name').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      
+      if (name === "" || phone === "") {
+        alert("Please fill out both fields.");
+        return;
+      }
+
+      var message = "Hello " + name + 
+        ", thank you for visiting Dr. Mani's Ortho Speciality & General Clinic. " + 
+        "We’d love your feedback. Please leave us a review here: https://g.page/r/CfKLCQ4kwt5UEBM/review";
+      
+      var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
