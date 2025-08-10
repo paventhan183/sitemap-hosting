@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Patient Claim Bill PDF</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- ✅ Correct CDN for jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 <body style="font-family: Arial, sans-serif; padding: 20px;">
 
@@ -21,23 +22,27 @@
   <button id="generateBtn">Generate PDF</button>
 
   <script>
-    document.getElementById("generateBtn").addEventListener("click", function () {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+    // Wait until the page and jsPDF library are fully loaded
+    window.onload = function () {
+      document.getElementById("generateBtn").addEventListener("click", function () {
+        // ✅ Use jsPDF safely after loading
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-      const patientName = document.getElementById("patientName").value;
-      const billNumber = document.getElementById("billNumber").value;
-      const amount = document.getElementById("amount").value;
+        const patientName = document.getElementById("patientName").value;
+        const billNumber = document.getElementById("billNumber").value;
+        const amount = document.getElementById("amount").value;
 
-      doc.setFontSize(16);
-      doc.text("Patient Claim Bill", 80, 20);
-      doc.setFontSize(12);
-      doc.text(`Patient Name: ${patientName}`, 20, 40);
-      doc.text(`Bill Number: ${billNumber}`, 20, 50);
-      doc.text(`Amount: Rs. ${amount}`, 20, 60);
+        doc.setFontSize(16);
+        doc.text("Patient Claim Bill", 80, 20);
+        doc.setFontSize(12);
+        doc.text(`Patient Name: ${patientName}`, 20, 40);
+        doc.text(`Bill Number: ${billNumber}`, 20, 50);
+        doc.text(`Amount: Rs. ${amount}`, 20, 60);
 
-      doc.save("Patient_Claim_Bill.pdf");
-    });
+        doc.save("Patient_Claim_Bill.pdf");
+      });
+    };
   </script>
 
 </body>
