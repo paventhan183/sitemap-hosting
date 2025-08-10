@@ -56,10 +56,12 @@
       var fullPhone = "+91" + phone;
 
       var message = "Hello " + name + ",\n" +
-              "Thank you for visiting *Dr. Mani's Ortho Speciality & General Clinic*.\n" +
-              "We’d love your feedback.\n" +
-              "Please leave us a review here: https://g.page/r/CfKLCQ4kwt5UEBM/review";
-      
+        "Thank you for visiting *Dr. Mani's Ortho Speciality & General Clinic*.\n" +
+        "Your review means a lot to us — it helps others find the right care and encourages our team.\n" +
+        "If you were happy with our service, please give us a *5-star rating* ⭐⭐⭐⭐⭐.\n" +
+        "You can share your feedback here: https://g.page/r/CfKLCQ4kwt5UEBM/review\n" +
+        "Your rating would help us serve you even better!";
+
       var url = "https://wa.me/" + fullPhone + "?text=" + encodeURIComponent(message);
       window.open(url, "_blank");
     }
