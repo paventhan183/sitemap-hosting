@@ -1,123 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Patient Claim Bill PDF Generator</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 700px; margin: 20px auto; }
-    label { display: block; margin-top: 10px; }
-    input, textarea { width: 100%; padding: 6px; margin-top: 4px; }
-    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
-    textarea { resize: vertical; }
-  </style>
+<meta charset="UTF-8" />
+<title>PDF Generator Test</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-<h2>Patient Claim Bill PDF Generator</h2>
-
-<form id="billForm" onsubmit="return false;">
-  <label>Patient Name: <input type="text" id="patientName" value="John Doe" required></label>
-  <label>Patient ID: <input type="text" id="patientId" value="P12345" required></label>
-  <label>Age / Gender: <input type="text" id="ageGender" value="35 / Male" required></label>
-  <label>Date of Visit: <input type="date" id="visitDate" value="2025-08-08" required></label>
-  <label>Doctor Name: <input type="text" id="doctorName" value="Dr. Mani Arumugam, M.B.B.S., M.S., ORTHO" required></label>
-
-  <label>Services (one per line, format: Description,Quantity,Rate,Amount)<br>
-    Example: Consultation Fee,1,500,500</label>
-  <textarea id="services" rows="6">Consultation Fee,1,500,500
-X-Ray (Digital),1,800,800
-Dressing / Minor Procedure,1,300,300
-Medicines,-,-,700
-Physiotherapy Session,2,400,800</textarea>
-
-  <label>Total Amount: <input type="number" id="totalAmount" value="3100" required></label>
-  <label>Amount Paid: <input type="number" id="amountPaid" value="3100" required></label>
-  <label>Payment Mode: <input type="text" id="paymentMode" value="Cash" required></label>
-
-  <button id="generateBtn">Generate PDF</button>
-</form>
+<h2>Generate Simple PDF</h2>
+<button id="btn">Generate PDF</button>
 
 <script>
-  document.getElementById('generateBtn').addEventListener('click', async () => {
+  document.getElementById('btn').addEventListener('click', () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-
-    // Clinic info
-    const clinicName = "Dr. Mani's Ortho Speciality & General Clinic";
-    const clinicAddress = "68, Radha Nagar Main Road, Opposite J2 Mahal, Chromepet, Chennai";
-    const clinicPhone = "Phone: +91-XXXXXXXXXX";
-    const billDate = new Date().toLocaleDateString();
-    const billNo = "001234";
-
-    // Get form values
-    const patientName = document.getElementById("patientName").value;
-    const patientId = document.getElementById("patientId").value;
-    const ageGender = document.getElementById("ageGender").value;
-    const visitDate = document.getElementById("visitDate").value;
-    const doctorName = document.getElementById("doctorName").value;
-    const servicesText = document.getElementById("services").value;
-    const totalAmount = document.getElementById("totalAmount").value;
-    const amountPaid = document.getElementById("amountPaid").value;
-    const paymentMode = document.getElementById("paymentMode").value;
-
-    // Title
-    doc.setFontSize(18);
-    doc.text("Patient Claim Bill", 105, 15, null, null, "center");
-
-    doc.setFontSize(12);
-    doc.text(clinicName, 105, 25, null, null, "center");
-    doc.text(clinicAddress, 105, 32, null, null, "center");
-    doc.text(clinicPhone, 105, 39, null, null, "center");
-    doc.text(`Date: ${billDate}    Bill No: ${billNo}`, 105, 46, null, null, "center");
-
-    // Patient info
-    let y = 55;
-    doc.text(`Patient Name: ${patientName}`, 14, y); y += 7;
-    doc.text(`Patient ID: ${patientId}`, 14, y); y += 7;
-    doc.text(`Age / Gender: ${ageGender}`, 14, y); y += 7;
-    doc.text(`Date of Visit: ${visitDate}`, 14, y); y += 7;
-    doc.text(`Doctor: ${doctorName}`, 14, y); y += 10;
-
-    // Table headers
-    doc.setFont(undefined, 'bold');
-    doc.text("Service Description", 14, y);
-    doc.text("Quantity", 100, y);
-    doc.text("Rate (Rs.)", 130, y);
-    doc.text("Amount (Rs.)", 170, y);
-    doc.setFont(undefined, 'normal');
-    y += 6;
-
-    // Parse services lines
-    const services = servicesText.trim().split('\n').map(line => line.split(','));
-
-    services.forEach(service => {
-      if (service.length === 4) {
-        doc.text(service[0], 14, y);
-        doc.text(service[1], 105, y, null, null, "center");
-        doc.text(service[2], 140, y, null, null, "center");
-        doc.text(service[3], 180, y, null, null, "center");
-        y += 7;
-      }
-    });
-
-    y += 5;
-    doc.setFont(undefined, 'bold');
-    doc.text("Total Amount:", 130, y);
-    doc.text(`Rs. ${totalAmount}`, 180, y, null, null, "center");
-    y += 10;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Amount Paid: Rs. ${amountPaid}`, 14, y);
-    y += 7;
-    doc.text(`Payment Mode: ${paymentMode}`, 14, y);
-    y += 15;
-
-    // Signatures
-    doc.text("Signature of Clinic Authority: ____________________", 14, y);
-    doc.text("Patient Signature: ____________________", 130, y);
-
-    // Save the PDF
-    doc.save(`Patient_Claim_Bill_${patientName.replace(/\s+/g, '_')}.pdf`);
+    doc.text("Hello, this is a test PDF!", 10, 10);
+    doc.save("test.pdf");
   });
 </script>
 
