@@ -89,4 +89,37 @@ Physiotherapy Session,2,400,800</textarea>
     y += 6;
 
     // Parse services lines
-    const services = servicesText.trim().split('\n
+    const services = servicesText.trim().split('\n').map(line => line.split(','));
+
+    services.forEach(service => {
+      if (service.length === 4) {
+        doc.text(service[0], 14, y);
+        doc.text(service[1], 105, y, null, null, "center");
+        doc.text(service[2], 140, y, null, null, "center");
+        doc.text(service[3], 180, y, null, null, "center");
+        y += 7;
+      }
+    });
+
+    y += 5;
+    doc.setFont(undefined, 'bold');
+    doc.text("Total Amount:", 130, y);
+    doc.text(`Rs. ${totalAmount}`, 180, y, null, null, "center");
+    y += 10;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Amount Paid: Rs. ${amountPaid}`, 14, y);
+    y += 7;
+    doc.text(`Payment Mode: ${paymentMode}`, 14, y);
+    y += 15;
+
+    // Signatures
+    doc.text("Signature of Clinic Authority: ____________________", 14, y);
+    doc.text("Patient Signature: ____________________", 130, y);
+
+    // Save the PDF
+    doc.save(`Patient_Claim_Bill_${patientName.replace(/\s+/g, '_')}.pdf`);
+  });
+</script>
+
+</body>
+</html>
