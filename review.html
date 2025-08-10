@@ -46,9 +46,10 @@
         return;
       }
 
-      var message = "Hello " + name + 
-        ", Thank you for visiting Dr. Mani's Ortho Speciality & General Clinic. " + 
-        "We’d love your feedback. Please leave us a review here: https://g.page/r/CfKLCQ4kwt5UEBM/review";
+      var message = "Hello " + name + ",\n" +
+              "Thank you for visiting *Dr. Mani's Ortho Speciality & General Clinic*.\n" +
+              "We’d love your feedback.\n" +
+              "Please leave us a review here: https://g.page/r/CfKLCQ4kwt5UEBM/review";
       
       var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
       window.open(url, "_blank");
