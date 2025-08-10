@@ -8,7 +8,7 @@
     body { font-family: Arial, sans-serif; max-width: 700px; margin: 20px auto; }
     label { display: block; margin-top: 10px; }
     input, textarea { width: 100%; padding: 6px; margin-top: 4px; }
-    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
     textarea { resize: vertical; }
   </style>
 </head>
@@ -16,7 +16,7 @@
 
 <h2>Patient Claim Bill PDF Generator</h2>
 
-<form id="billForm">
+<form id="billForm" onsubmit="return false;">
   <label>Patient Name: <input type="text" id="patientName" value="John Doe" required></label>
   <label>Patient ID: <input type="text" id="patientId" value="P12345" required></label>
   <label>Age / Gender: <input type="text" id="ageGender" value="35 / Male" required></label>
@@ -35,11 +35,11 @@ Physiotherapy Session,2,400,800</textarea>
   <label>Amount Paid: <input type="number" id="amountPaid" value="3100" required></label>
   <label>Payment Mode: <input type="text" id="paymentMode" value="Cash" required></label>
 
-  <button type="button" onclick="generatePDF()">Generate PDF</button>
+  <button id="generateBtn">Generate PDF</button>
 </form>
 
 <script>
-  async function generatePDF() {
+  document.getElementById('generateBtn').addEventListener('click', async () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
@@ -89,37 +89,4 @@ Physiotherapy Session,2,400,800</textarea>
     y += 6;
 
     // Parse services lines
-    const services = servicesText.trim().split('\n').map(line => line.split(','));
-
-    services.forEach(service => {
-      if (service.length === 4) {
-        doc.text(service[0], 14, y);
-        doc.text(service[1], 105, y, null, null, "center");
-        doc.text(service[2], 140, y, null, null, "center");
-        doc.text(service[3], 180, y, null, null, "center");
-        y += 7;
-      }
-    });
-
-    y += 5;
-    doc.setFont(undefined, 'bold');
-    doc.text("Total Amount:", 130, y);
-    doc.text(`Rs. ${totalAmount}`, 180, y, null, null, "center");
-    y += 10;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Amount Paid: Rs. ${amountPaid}`, 14, y);
-    y += 7;
-    doc.text(`Payment Mode: ${paymentMode}`, 14, y);
-    y += 15;
-
-    // Signatures
-    doc.text("Signature of Clinic Authority: ____________________", 14, y);
-    doc.text("Patient Signature: ____________________", 130, y);
-
-    // Save the PDF
-    doc.save(`Patient_Claim_Bill_${patientName.replace(/\s+/g, '_')}.pdf`);
-  }
-</script>
-
-</body>
-</html>
+    const services = servicesText.trim().split('\n
