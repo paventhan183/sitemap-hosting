@@ -2,28 +2,27 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Export PDF Example</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <title>PDF Export Test</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    #content { border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    body { font-family: Arial; padding: 20px; }
+    #content { padding: 20px; border: 1px solid #ccc; }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
 </head>
 <body>
 
   <div id="content">
-    <h1>Dr. Mani's Ortho Speciality & General Clinic</h1>
-    <p>This is a sample PDF export content from GitHub Pages.</p>
+    <h2>Dr. Mani's Ortho Speciality & General Clinic</h2>
+    <p>Patient Bill #12345</p>
   </div>
 
-  <button onclick="generatePDF()">Download PDF</button>
+  <button id="download">Download PDF</button>
 
   <script>
-    function generatePDF() {
+    document.getElementById('download').addEventListener('click', function () {
       const element = document.getElementById('content');
-      html2pdf().from(element).save('Clinic-Details.pdf');
-    }
+      html2pdf().from(element).save('Bill.pdf');
+    });
   </script>
 
 </body>
